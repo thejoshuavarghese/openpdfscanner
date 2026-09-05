@@ -1,0 +1,18 @@
+<div class="modal">
+  <div class="modal-top">
+    <button (click)="back.emit()">← Back</button>
+    <span>Review</span>
+    <button (click)="accepted.emit()">Add Page</button>
+  </div>
+
+  <div class="preview">
+    <img [src]="imageDataUrl" alt="Scanned page preview" />
+  </div>
+
+  <div class="actions">
+    <button class="btn danger" (click)="discarded.emit()">Discard</button>
+    <button class="btn primary" (click)="accepted.emit()">
+      ✓ Add to Document
+    </button>
+  </div>
+</div>
