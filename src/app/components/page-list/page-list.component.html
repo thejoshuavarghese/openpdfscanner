@@ -1,0 +1,60 @@
+<ul class="page-list">
+  @for (page of pages; track page.id; let i = $index) {
+    <li
+      class="page-item"
+      draggable="true"
+      (dragstart)="onDragStart(i)"
+      (dragover)="$event.preventDefault()"
+      (drop)="onDrop(i)"
+      (dragend)="onDragEnd()"
+    >
+      <span class="drag-handle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+      </span>
+
+      <div class="thumb-wrap">
+        <img [src]="page.dataUrl" [alt]="page.name"
+             [style.transform]="'rotate(' + page.rotation + 'deg)'" />
+      </div>
+
+      <div class="page-info">
+        <div class="name">{{ page.name }}</div>
+        <div class="idx">Page {{ i + 1 }}</div>
+      </div>
+
+      <div class="page-controls">
+        <button class="icon-btn" (click)="rotatePage.emit({ id: page.id, delta: -90 })" title="Rotate left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-3.53"/>
+          </svg>
+        </button>
+        <button class="icon-btn" (click)="rotatePage.emit({ id: page.id, delta: 90 })" title="Rotate right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-.49-3.53"/>
+          </svg>
+        </button>
+        <button class="icon-btn" (click)="editPage.emit(page)" title="Edit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </button>
+        <button class="icon-btn danger" (click)="removePage.emit(page.id)" title="Delete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14H6L5 6"/>
+          </svg>
+        </button>
+      </div>
+    </li>
+  }
+</ul>
